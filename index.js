@@ -24,7 +24,7 @@ const tokens = {
 var tiktok_followers = []
 var instagram_followers = []
 var twitter_followers = []
-
+var twitch_followers = []
 
 
 
@@ -73,11 +73,28 @@ if (process.env.twitter == 'YES') {
         // Restarting follower counts every 60 seconds
         // Twitter
         // We check this every minute because of the twitter rate limit https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits
-        setInterval(twitter_follow, 60 * 1000);
+        setInterval(twitter_follow, 10 * 1000);
     }
 } else {
     console.log('No Twitter');
 }
+if (process.env.twitch == 'YES') {
+    if (process.env.twitch_id == undefined) {
+        console.log('Missing Twitch ID')
+        return;
+    } else if (process.env.twitch_url == undefined) {
+        console.log('Missing Twitch Url')
+        return;
+    } else {
+        console.log('Running Twitch!')
+        // Restarting follower counts every 30 seconds
+        // Instagram
+        setInterval(twitter_follow, 30 * 1000);
+    }
+} else {
+    console.log('No Twitch');
+}
+
 
 
 
@@ -173,6 +190,56 @@ function twitter_follow() {
 
 function request_twitter() {
     var url = process.env.tw_url
+    request.get({
+        url: url,
+        json: true,
+        headers: {
+            'User-Agent': 'request'
+        }
+    }, (err, res) => {
+        if (err) {
+            console.log('Error:', err)
+        } else if (res.statusCode !== 200) {
+            console.log('Status:', res.statusCode);
+        } else {
+            console.log(res.body);
+        }
+    })
+}
+
+// Twitch
+function twitch_follow () {
+    console.log('----------')
+    var url = `https://api.twitch.tv/helix/users/follows?to_id=${process.env.twitch_id}`;
+    request.get({
+        url: url,
+        json: true,
+        headers: {
+            'User-Agent': 'request',
+            'Client-ID': process.env.twitch_client_ID,
+            'Authorization': `Bearer ${process.env.twitch_client_bearer}`
+        }
+    }, (err, res, data) => {
+        if (err) {
+            console.log('Error:', err)
+        } else if (res.statusCode !== 200) {
+            console.log('Status:', res.statusCode);
+        } else {
+            var followers = data.total;
+            if (followers > twitch_followers[twitch_followers.length-1]) {
+                console.log('New Twitch Follower!', followers)
+                request_twitch();
+            } else {
+                console.log('No New Twitch Follower!', followers)
+            }
+            twitch_followers.push(followers);
+            console.log('Updated Array', followers);
+        }
+    })
+}
+
+function request_twitter() {
+    var url = process.env.twitch_url
     request.get({
         url: url,
         json: true,
