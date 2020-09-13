@@ -6,11 +6,14 @@
   "dependencies": {
     "delay": "^4.4.0",
     "dotenv": "^8.2.0",
+    "get-twitter-followers": "^2.0.0",
     "instagram-basic-data-scraper-with-username": "^4.0.1",
     "node-cron": "^2.0.3",
     "request": "^2.88.2",
     "requset": "0.0.1-security",
     "tiktok-status-api": "^1.0.3",
+    "twitter-followers-count": "^1.0.6",
+    "twitter-tokens": "^1.0.3",
     "user-instagram": "^2.1.3"
   },
   "devDependencies": {},
