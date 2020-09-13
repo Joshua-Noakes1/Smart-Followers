@@ -9,6 +9,15 @@ const tiktok = new TikTok();
 // Arrays for storing follower count
 var tiktok_followers = []
 
+// .env verification
+if (process.env.tiktok_username == undefined) {
+    console.log('Missing Tiktok Username')
+    return;
+} else if (process.env.tiktok_url == undefined) {
+    console.log('Missing Url')
+    return;
+}
+
 console.log('Running')
 
 // Titkok Followers
@@ -23,7 +32,6 @@ function tiktok_follow() {
     tiktok_followers.push(current);
     console.log('Updated Array', tiktok_followers);
 };
-
 
 // Request Url Function
 function request_url() {
