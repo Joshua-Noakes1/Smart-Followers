@@ -167,7 +167,7 @@ function twitter_follow() {
             console.log('No New Twitter Followers!', followers.length);
         }
         twitter_followers.push(followers.length)
-        console.log('Updated Twitter Array', twitter_followers);
+        console.log('Updated Twitter Array');
     }).catch(err => console.log(err));
 }
 
