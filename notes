@@ -1,2 +1,5 @@
 https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=ai6i28msomzxerjyb1ilk2vvspclmf&redirect_uri=http://localhost&scope=user:edit
-twitch url
+twitch OAUTH url
+
+npm i --save tiktok-status-api instagram-basic-data-scraper-with-username request node-fetch get-twitter-followers dotenv
+npm current install command

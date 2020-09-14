@@ -1,7 +1,10 @@
+// The old request code is still here so i can refenence it while moving twich over to node-fetch
+
 // Requried Libs
 const TikTok = require('tiktok-status-api');
 const instaObj = require('instagram-basic-data-scraper-with-username');
 const request = require('request');
+const fetch = require('node-fetch');
 const getTwitterFollowers = require('get-twitter-followers');
 require('dotenv').config();
 
@@ -28,7 +31,7 @@ var twitch_followers = []
 
 
 
-// .env verification 
+// .env verification tiktok
 if (process.env.tiktok == 'YES') {
     if (process.env.tiktok_username == undefined) {
         console.log('Missing Tiktok Username')
@@ -45,6 +48,8 @@ if (process.env.tiktok == 'YES') {
 } else {
     console.log('No Tikok');
 }
+
+// instagram
 if (process.env.instagram == 'YES') {
     if (process.env.instagram_username == undefined) {
         console.log('Missing Instagram Username')
@@ -61,6 +66,8 @@ if (process.env.instagram == 'YES') {
 } else {
     console.log('No Instagram');
 }
+
+// twitter
 if (process.env.twitter == 'YES') {
     if (process.env.tw_username == undefined) {
         console.log('Missing Twitter Username')
@@ -78,6 +85,8 @@ if (process.env.twitter == 'YES') {
 } else {
     console.log('No Twitter');
 }
+
+// twitch
 if (process.env.twitch == 'YES') {
     if (process.env.twitch_id == undefined) {
         console.log('Missing Twitch ID')
@@ -95,9 +104,6 @@ if (process.env.twitch == 'YES') {
     console.log('No Twitch');
 }
 
-
-
-
 //Functions
 // Titkok Followers
 function tiktok_follow() {
@@ -114,7 +120,23 @@ function tiktok_follow() {
 };
 
 // Request Url Function Tiktok
+
 function request_tiktok() {
+    fetch(process.env.tiktok_url)
+    .then(checkStatus)
+    .then(body => console.log(body));
+
+    function checkStatus(res) {
+        if (res.ok) { // res.status >= 200 && res.status < 300
+            return res;
+        } else {
+            throw ResponseError(res.statusText);
+        }
+    }
+}
+
+/*/ Depricated ...
+function request_tiktok_old() {
     var url = process.env.tiktok_url
     request.get({
         url: url,
@@ -132,6 +154,7 @@ function request_tiktok() {
         }
     })
 }
+/*/
 
 
 
@@ -154,7 +177,22 @@ function instagram_follow() {
 
 };
 
+// instagram request
 function request_instagram() {
+    fetch(process.env.instagram_url)
+    .then(checkStatus)
+    .then(body => console.log(body));
+
+    function checkStatus(res) {
+        if (res.ok) { // res.status >= 200 && res.status < 300
+            return res;
+        } else {
+            throw ResponseError(res.statusText);
+        }
+    }
+}
+/*/ Depricated
+function request_instagram_old() {
     var url = process.env.instagram_url
     request.get({
         url: url,
@@ -173,6 +211,7 @@ function request_instagram() {
     })
 }
 
+/*/
 // Twtter
 function twitter_follow() {
     console.log('----------');
@@ -188,7 +227,23 @@ function twitter_follow() {
     }).catch(err => console.log(err));
 }
 
+// twitter request
 function request_twitter() {
+    fetch(process.env.tw_url)
+    .then(checkStatus)
+    .then(body => console.log(body));
+
+    function checkStatus(res) {
+        if (res.ok) { // res.status >= 200 && res.status < 300
+            return res;
+        } else {
+            throw ResponseError(res.statusText);
+        }
+    }
+}
+
+/*/ Depricated
+function request_twitter_old() {
     var url = process.env.tw_url
     request.get({
         url: url,
@@ -206,8 +261,12 @@ function request_twitter() {
         }
     })
 }
+/*/
 
-// Twitch
+/*/ Twitch:
+    This should be easy to move to node-fetch right? https://www.npmjs.com/package/node-fetch#post-with-json
+    I guess we just change method to get?
+/*/
 function twitch_follow () {
     console.log('----------')
     var url = `https://api.twitch.tv/helix/users/follows?to_id=${process.env.twitch_id}`;
@@ -238,6 +297,7 @@ function twitch_follow () {
     })
 }
 
+// twitch request
 function request_twitter() {
     var url = process.env.twitch_url
     request.get({
