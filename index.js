@@ -123,8 +123,8 @@ function tiktok_follow() {
 
 function request_tiktok() {
     fetch(process.env.tiktok_url)
-    .then(checkStatus)
-    .then(body => console.log(body));
+        .then(checkStatus)
+        .then(body => console.log(body));
 
     function checkStatus(res) {
         if (res.ok) { // res.status >= 200 && res.status < 300
@@ -180,8 +180,8 @@ function instagram_follow() {
 // instagram request
 function request_instagram() {
     fetch(process.env.instagram_url)
-    .then(checkStatus)
-    .then(body => console.log(body));
+        .then(checkStatus)
+        .then(body => console.log(body));
 
     function checkStatus(res) {
         if (res.ok) { // res.status >= 200 && res.status < 300
@@ -230,8 +230,8 @@ function twitter_follow() {
 // twitter request
 function request_twitter() {
     fetch(process.env.tw_url)
-    .then(checkStatus)
-    .then(body => console.log(body));
+        .then(checkStatus)
+        .then(body => console.log(body));
 
     function checkStatus(res) {
         if (res.ok) { // res.status >= 200 && res.status < 300
@@ -267,7 +267,7 @@ function request_twitter_old() {
     This should be easy to move to node-fetch right? https://www.npmjs.com/package/node-fetch#post-with-json
     I guess we just change method to get?
 /*/
-function twitch_follow () {
+function twitch_follow() {
     console.log('----------')
     var url = `https://api.twitch.tv/helix/users/follows?to_id=${process.env.twitch_id}`;
     request.get({
@@ -285,7 +285,7 @@ function twitch_follow () {
             console.log('Status:', res.statusCode);
         } else {
             var followers = data.total;
-            if (followers > twitch_followers[twitch_followers.length-1]) {
+            if (followers > twitch_followers[twitch_followers.length - 1]) {
                 console.log('New Twitch Follower!', followers)
                 request_twitch();
             } else {
