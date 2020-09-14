@@ -298,7 +298,7 @@ function twitch_follow() {
 }
 
 // twitch request
-function request_twitter() {
+function request_twitch() {
     var url = process.env.twitch_url
     request.get({
         url: url,
