@@ -297,8 +297,24 @@ function twitch_follow() {
     })
 }
 
-// twitch request
-function request_twitch() {
+// twitch requst
+function request_twitter() {
+    fetch(process.env.twitch_url)
+        .then(checkStatus)
+        .then(body => console.log(body));
+
+    function checkStatus(res) {
+        if (res.ok) { // res.status >= 200 && res.status < 300
+            return res;
+        } else {
+            throw ResponseError(res.statusText);
+        }
+    }
+}
+
+
+/*/ Depricated
+function request_twitch_old() {
     var url = process.env.twitch_url
     request.get({
         url: url,
@@ -316,3 +332,4 @@ function request_twitch() {
         }
     })
 }
+/*/
