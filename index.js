@@ -1,4 +1,7 @@
-// The old request code is still here so i can refenence it while moving twich over to node-fetch
+/*/ The old request code is still here so i can refenence it while moving twich over to node-fetch
+
+I need to rework all the var name within the functions so they are the same
+/*/
 
 // Requried Libs
 const TikTok = require('tiktok-status-api');
@@ -170,6 +173,7 @@ function instagram_follow() {
         } else {
             console.log('No New Instagram Followers!', follower_count);
         }
+        instagram_followers.push(follower_count);
         console.log('Updated Insagram Array');
 
     });
